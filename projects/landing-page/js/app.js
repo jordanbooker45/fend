@@ -17,7 +17,7 @@
  * Define Global Variables
  * 
 */
-const sections = document.querySelectorAll('.section-title');
+const sections = document.querySelectorAll('section');
 const navBarList = document.getElementById('navbar__list');
 /**
  * End Global Variables
@@ -25,29 +25,29 @@ const navBarList = document.getElementById('navbar__list');
  * 
 */
 
-function createSectionLi (sectionTitle) {
-    const _sectionTitle = sectionTitle;
+function createSectionLi (_section) {
+    const linkId = _section.getAttribute('id');
+    const linkLocation = `index.html#${linkId}`;
+    const title = _section.getAttribute('data-nav');
     const newLi = document.createElement('li');
-    newLi.textContent = _sectionTitle;
-    newLi.classList.add('menu__link');
+    const innerLink = document.createElement('a');
+    innerLink.setAttribute('href', linkLocation);
+    innerLink.classList.add('menu__link');
+    innerLink.textContent = title;
+    newLi.appendChild(innerLink);
     navBarList.appendChild(newLi);
 }
-
-function createLink ()
 
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
-// add: onPageLoad call "main function (for..loop)" 
+// onload calls this loop
 
 function formatMenu() {
     for (let section of sections) {
-        let sectionTitle = section.innerText;
-        createSectionLi(sectionTitle);
-
-
+        createSectionLi(section);
      }
 }
 
