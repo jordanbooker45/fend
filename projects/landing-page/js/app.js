@@ -38,12 +38,25 @@ function createSectionLi (_section) {
     navBarList.appendChild(newLi);
 }
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-// onload calls this loop
+function inView(section) {
+    const linkId = section.getAttribute('id');
+    const linkLocation = `index.html#${linkId}`;
+    const linkContainer = document.querySelectorAll(`a[href="${linkLocation}"]`)
+    const position = section.getBoundingClientRect();
+    if (position.top <= 100 && position.bottom <= 100) {
+        section.classList.add('active');
+//        linkContainer.classList.add('active__link')
+        console.log(section.classList)
+    }
+    else {
+        section.classList.remove('active');
+//        linkContainer.classList.remove('active__link');
+        console.log(section.classList)
+    } 
+}
+
+
+// onload calls this loop to create the nav menu
 
 function formatMenu() {
     for (let section of sections) {
@@ -51,29 +64,10 @@ function formatMenu() {
      }
 }
 
+// Listen for scroll and if a section is in the viewport the class is added
 
-
-// build the nav
-
-
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
+window.addEventListener('scroll', () => {
+   for (let section of sections) {
+       inView(section);
+   }
+});
