@@ -19,6 +19,8 @@
 */
 const sections = document.querySelectorAll('section');
 const navBarList = document.getElementById('navbar__list');
+const vpHeight = window.innerHeight + 200;
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -43,17 +45,12 @@ function inView(section) {
     const linkLocation = `index.html#${linkId}`;
     const linkContainer = document.querySelectorAll(`a[href="${linkLocation}"]`)
     const position = section.getBoundingClientRect();
-    if (position.top <= 100 && position.bottom <= 100) {
+    if (position.top <= 0 && position.bottom <= vpHeight) {
         section.classList.add('active');
-//        linkContainer.classList.add('active__link')
-        console.log(section.classList)
     }
-    else {
+    if (position.top >= 0 && position.bottom >= vpHeight) {
         section.classList.remove('active');
-//        linkContainer.classList.remove('active__link');
-        console.log(section.classList)
-    } 
-}
+}};
 
 
 // onload calls this loop to create the nav menu
