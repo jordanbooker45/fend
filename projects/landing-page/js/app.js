@@ -57,9 +57,6 @@ function inView(section) {
   }
 }
 
-// if position is at the top of vp then add active
-// if position.top is >= 0 && position.bottom <= 0
-
 // onload calls this loop to create the nav menu
 
 function formatMenu() {

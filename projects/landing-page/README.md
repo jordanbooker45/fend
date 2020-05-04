@@ -2,12 +2,28 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Structure](#Structure)
+* [How it works](#howitworks)
+* [Licensing](#licensing)
 
-## Instructions
+## Structure
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+- css
+  - style.css
+- js
+  - app.js
+- index.html
+- README.md
 
-To get started, open `js/app.js` and start building out the app's functionality
+## How it works
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+​	Add as many sections as you need to the html file while following the structure of previous sections in the file. Alternatively you may use JavaScript to add the structure and mark up of the page. 
+
+​	Once the page has finished loading a function is called to loop through the section tags in the HTML. For each section tag a  <li> and an <a> element is created with CSS classes. The <a> element has an "href" attribute that is created using the data-* attribute found in the section. 
+
+​	When a navigation element is clicked the page smooth scrolls to the corresponding section as well as adds the class "active" to each element. Active is added and removed based on the elements position in the viewport. 
+
+## Licensing
+
+Please use at your discretion and credit Jordan Booker if you feel so inclined. I hope you enjoyed reading! 
+
