@@ -50,10 +50,10 @@ function inView(section) {
     position.bottom <= (vpHeight || section.clientHeight)
   ) {
     section.classList.add("active");
-    console.log(section.id);
+    linkContainer[0].classList.add('active__link')
   } else {
     section.classList.remove("active");
-    console.log("test");
+    linkContainer[0].classList.remove('active__link')
   }
 }
 
