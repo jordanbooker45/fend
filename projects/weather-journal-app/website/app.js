@@ -19,7 +19,8 @@ const settings = {
 
 const retrieveData = async () => {
   const inputZip = document.getElementById("zip").value;
-  const res = await fetch(baseUrl + inputZip + key);
+  const builtUrl = baseUrl + inputZip + key
+  const res = await fetch(builtUrl);
   try {
     const weatherData = await res.json();
     document.getElementById("date").innerHTML = newDate;
@@ -27,7 +28,7 @@ const retrieveData = async () => {
     document.getElementById("content").innerHTML = document.getElementById(
       "feelings"
     ).value;
-  } catch (error) {
+  }catch (error) {
     console.log("error", error);
   }
 };
