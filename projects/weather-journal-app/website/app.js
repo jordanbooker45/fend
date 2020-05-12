@@ -8,27 +8,32 @@ let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
 //Async GET
+const data = {
+  date: newDate,
+  temp: "",
+  content: document.getElementById("feelings").value,
+};
 
 const settings = {
   method: "POST",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
+    body: JSON.stringify(data),
   },
 };
 
 const retrieveData = async () => {
-  const inputZip = document.getElementById("zip").value;
-  const builtUrl = baseUrl + inputZip + key
-  const res = await fetch(builtUrl);
   try {
-    const weatherData = await res.json();
-    document.getElementById("date").innerHTML = newDate;
-    document.getElementById("temp").innerHTML = weatherData.main.temp;
-    document.getElementById("content").innerHTML = document.getElementById(
-      "feelings"
-    ).value;
-  }catch (error) {
+    // GET weather Data
+    const inputZip = document.getElementById("zip").value;
+    const res = await fetch(baseUrl + inputZip + key);
+    const weatherData = await res
+      .json()
+
+      //Post both weather data and user data to data object
+      .then(await fetch("http://localhost:5000/api", settings));
+  } catch (error) {
     console.log("error", error);
   }
 };
@@ -36,5 +41,14 @@ const retrieveData = async () => {
 document.getElementById("generate").addEventListener("click", retrieveData);
 
 //maybe use later
+
 //await fetch("http://localhost:5000/api", settings);
 // console.log(allData);
+
+// For sure use later
+
+/* document.getElementById("date").innerHTML = newDate;
+    document.getElementById("temp").innerHTML = weatherData.main.temp;
+    document.getElementById("content").innerHTML = document.getElementById(
+      "feelings"
+    ).value; */
