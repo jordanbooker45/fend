@@ -40,13 +40,14 @@ const retrieveData = async () => {
       throw "Zip must be 5 numbers and feelings must be a string";
     }
 
-    //After data is put into object post it to server then update the UI
+    //After data is put into object run post request
     sendData();
   } catch (error) {
     console.log("error", error);
   }
 };
 
+// Post request to post data to server, then run update UI
 const sendData = async () => {
   const settings = {
     method: "POST",
@@ -58,6 +59,7 @@ const sendData = async () => {
   await fetch("http://localhost:5000/api", settings).then(updateUi());
 };
 
+//Updates UI by getting projectData object and setting the values to the corrosponding elements
 const updateUi = async () => {
   try {
     const response = await fetch("http://localhost:5000/api");
@@ -70,4 +72,5 @@ const updateUi = async () => {
   }
 };
 
+//Click event to trigger first event
 document.getElementById("generate").addEventListener("click", retrieveData);
