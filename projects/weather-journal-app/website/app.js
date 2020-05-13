@@ -14,31 +14,42 @@ const data = {
   content: document.getElementById("feelings").value,
 };
 
-const settings = {
-  method: "POST",
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    body: JSON.stringify(data),
-  },
-};
-
 const retrieveData = async () => {
   try {
     // GET weather Data
     const inputZip = document.getElementById("zip").value;
     const res = await fetch(baseUrl + inputZip + key);
-    const weatherData = await res
-      .json()
+    const weatherData = await res.json();
 
-      //Post both weather data and user data to data object
-      .then(await fetch("http://localhost:5000/api", settings));
+    if (weatherData) {
+      data.temp = weatherData.main.temp;
+    }
+    const content = document.getElementById("feelings").value;
+    if (content) {
+      data.content = content;
+      console.log(data);
+    }
+    sendData();
+    //Post both weather data and user data to data object
   } catch (error) {
     console.log("error", error);
   }
 };
 
-document.getElementById("generate").addEventListener("click", retrieveData);
+const sendData = async () => {
+  const settings = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  await fetch("http://localhost:5000/api", settings).then(updateUi(res.body));
+};
+
+const updateUi = document
+  .getElementById("generate")
+  .addEventListener("click", retrieveData);
 
 //maybe use later
 
@@ -52,3 +63,5 @@ document.getElementById("generate").addEventListener("click", retrieveData);
     document.getElementById("content").innerHTML = document.getElementById(
       "feelings"
     ).value; */
+
+//JSON.stringify(data)

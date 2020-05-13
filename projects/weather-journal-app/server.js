@@ -43,14 +43,13 @@ app.post("/api", postData);
 
 function postData(req, res) {
   let newData = req.body;
-  console.log(newData);
   let newEntry = {
     temp: newData.temp,
     date: newData.date,
     userResponse: newData.content,
   };
   projectData.push(newEntry);
-  res.send("Data Received!");
+  res.status(201).json(projectData);
 }
 
 // Bring in API key
