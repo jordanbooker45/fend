@@ -7,30 +7,41 @@ const key = "&units=imperial&appid=43b07db9231a7c3610cf20df9a5be3a8";
 let d = new Date();
 let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
-//Async GET
 const data = {
   date: newDate,
   temp: "",
   content: document.getElementById("feelings").value,
 };
 
+/* Function called by event listener */
 const retrieveData = async () => {
   try {
-    // GET weather Data
+    //Grab user input data
     const inputZip = document.getElementById("zip").value;
-    const res = await fetch(baseUrl + inputZip + key);
-    const weatherData = await res.json();
-
-    if (weatherData) {
-      data.temp = weatherData.main.temp;
-    }
     const content = document.getElementById("feelings").value;
-    if (content) {
+
+    //If zip is 5 digits and content is string & not empty then fetch Weather api
+    if (
+      inputZip <= 99999 &&
+      inputZip >= 11111 &&
+      typeof content === "string" &&
+      content !== ""
+    ) {
+      const res = await fetch(baseUrl + inputZip + key);
+      const weatherData = await res.json();
+
+      //Add temperature and content to data object
+      data.temp = weatherData.main.temp;
       data.content = content;
-      console.log(data);
+
+      //If statement is not truthy then throw error and ask user to input valid zip and their feelings
+    } else {
+      alert("Please enter a valid US zip and your feelings!");
+      throw "Zip must be 5 numbers and feelings must be a string";
     }
+
+    //After data is put into object post it to server then update the UI
     sendData();
-    //Post both weather data and user data to data object
   } catch (error) {
     console.log("error", error);
   }
@@ -44,24 +55,19 @@ const sendData = async () => {
     },
     body: JSON.stringify(data),
   };
-  await fetch("http://localhost:5000/api", settings).then(updateUi(res.body));
+  await fetch("http://localhost:5000/api", settings).then(updateUi());
 };
 
-const updateUi = document
-  .getElementById("generate")
-  .addEventListener("click", retrieveData);
+const updateUi = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/api");
+    const data = await response.json();
+    document.getElementById("date").innerHTML = data.date;
+    document.getElementById("temp").innerHTML = data.temp;
+    document.getElementById("content").innerHTML = data.content;
+  } catch (error) {
+    console.log("error", error);
+  }
+};
 
-//maybe use later
-
-//await fetch("http://localhost:5000/api", settings);
-// console.log(allData);
-
-// For sure use later
-
-/* document.getElementById("date").innerHTML = newDate;
-    document.getElementById("temp").innerHTML = weatherData.main.temp;
-    document.getElementById("content").innerHTML = document.getElementById(
-      "feelings"
-    ).value; */
-
-//JSON.stringify(data)
+document.getElementById("generate").addEventListener("click", retrieveData);
