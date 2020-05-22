@@ -3,14 +3,16 @@ function handleSubmit(event) {
 
   // check what text was put into the form field
   let formText = document.getElementById("name").value;
-  checkForName(formText);
 
+  //Left it for a funny
+  Client.checkForName(formText);
   console.log("::: Form Submitted :::");
 
-  async (formText) => {
+  const getResults = async (formText) => {
+    console.log(formText);
     try {
       //Eventually use logic to check if string is more/less than 240 characters
-      if (typeof content === "string") {
+      if (typeof formText === "string") {
         //Check to see if formText is brought into function
         console.log(formText);
 
@@ -20,7 +22,7 @@ function handleSubmit(event) {
         const textResults = getElementById("text").innerHTML;
 
         //Get request to server
-        const res = await fetch("http://localhost:8080", {
+        const res = await fetch("http://localhost:8000/api", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +33,6 @@ function handleSubmit(event) {
           .then((data) => {
             console.log("Analysis received!");
             data.polarity = polarityResults;
-            d;
             data.subjectivity = subjectivityResults;
             data.text = textResults;
           });
@@ -44,5 +45,6 @@ function handleSubmit(event) {
     }
   };
 }
+getResults(formText);
 
 export { handleSubmit };

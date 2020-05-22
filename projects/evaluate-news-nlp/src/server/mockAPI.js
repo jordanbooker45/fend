@@ -1,7 +1,7 @@
-let json = {
-    'title': 'test json response',
-    'message': 'this is a message',
-    'time': 'now'
-}
+let data = {
+  polarity: "test",
+  subjectivity: "this works!",
+  text: "Yup",
+};
 
-module.exports = json
+module.exports = data;
