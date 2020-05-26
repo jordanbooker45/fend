@@ -15,7 +15,7 @@ const app = express();
 
 /* Middleware*/
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
@@ -42,6 +42,7 @@ app.listen(8000, function () {
 });
 
 app.post("/api", function (req, res) {
-  console.log("Print to term");
-  res.send(mockAPIResponse);
+  console.log("API called");
+  const mAr = res.json(mockAPIResponse);
+  console.log(mAr.body);
 });

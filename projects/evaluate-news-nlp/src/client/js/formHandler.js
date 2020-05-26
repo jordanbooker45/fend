@@ -39,12 +39,18 @@ function handleSubmit(event) {
     }
   }
   getResults(formText)
-    .then((response) => response.json())
+    .then((res) => console.log(res))
     .then((data) => {
       console.log("Analysis received!");
-      data.polarity = polarityResults;
-      data.subjectivity = subjectivityResults;
-      data.text = textResults;
+      //Grab HTML Elements to be updated
+      const polarityResults = document.getElementById("polarity");
+      const subjectivityResults = document.getElementById("subjectivity");
+      const textResults = document.getElementById("text");
+      console.log(data);
+      //Assign returned data to Elements
+      data.polarity.value = polarityResults.innerHTML;
+      data.subjectivity.value = subjectivityResults.innerHTML;
+      data.text.value = textResults.innerHTML;
     });
 }
 
