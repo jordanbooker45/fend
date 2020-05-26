@@ -8,34 +8,28 @@ function handleSubmit(event) {
   Client.checkForName(formText);
   console.log("::: Form Submitted :::");
 
-  const getResults = async (formText) => {
-    console.log(formText);
+  async function getResults(x) {
+    console.log(x);
     try {
       //Eventually use logic to check if string is more/less than 240 characters
-      if (typeof formText === "string") {
+      if (typeof x === "string") {
         //Check to see if formText is brought into function
-        console.log(formText);
+        console.log(x);
 
         //Grab HTML Elements to be dynamically updated
-        const polarityResults = getElementById("polarity").innerHTML;
-        const subjectivityResults = getElementById("subjectivity").innerHTML;
-        const textResults = getElementById("text").innerHTML;
+        const polarityResults = document.getElementById("polarity");
+        const subjectivityResults = document.getElementById("subjectivity");
+        const textResults = document.getElementById("text");
 
         //Get request to server
         const res = await fetch("http://localhost:8000/api", {
-          method: "GET",
+          method: "POST",
+          mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formText),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Analysis received!");
-            data.polarity = polarityResults;
-            data.subjectivity = subjectivityResults;
-            data.text = textResults;
-          });
+          body: JSON.stringify(x),
+        });
       } else {
         alert("Please use less than 240 characters");
         throw "Please use less than 240 characters.";
@@ -43,8 +37,15 @@ function handleSubmit(event) {
     } catch (error) {
       console.log("error", error);
     }
-  };
+  }
+  getResults(formText)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Analysis received!");
+      data.polarity = polarityResults;
+      data.subjectivity = subjectivityResults;
+      data.text = textResults;
+    });
 }
-getResults(formText);
 
 export { handleSubmit };

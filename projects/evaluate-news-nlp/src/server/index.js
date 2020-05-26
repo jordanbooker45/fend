@@ -1,5 +1,7 @@
 var path = require("path");
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const mockAPIResponse = require("./mockAPI.js");
 const AYLIENTextAPI = require("aylien_textapi");
 const dotenv = require("dotenv").config({ path: "../../.env" });
@@ -10,6 +12,15 @@ const mode = "mode=tweet&";
 const text = "text=John+is+a+very+good+football+player";
 
 const app = express();
+
+/* Middleware*/
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Cors for cross origin allowance
+
+app.use(cors());
 
 app.use(express.static("dist"));
 
@@ -30,7 +41,7 @@ app.listen(8000, function () {
   console.log("Example app listening on port 8000!");
 });
 
-app.get("/api", function (req, res) {
+app.post("/api", function (req, res) {
   console.log("Print to term");
   res.send(mockAPIResponse);
 });
