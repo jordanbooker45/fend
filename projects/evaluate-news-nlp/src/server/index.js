@@ -43,6 +43,10 @@ app.listen(8000, function () {
 
 app.post("/api", function (req, res) {
   console.log("API called");
-  const mAr = res.json(mockAPIResponse);
-  console.log(mAr.body);
+
+  /* //Use this to grab post req
+  req.param('text') */
+
+  res.json({ test: "test123" });
+  //  console.log(mAr.body);
 });

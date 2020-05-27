@@ -26,10 +26,11 @@ function handleSubmit(event) {
           method: "POST",
           mode: "no-cors",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json;charset=utf-8",
           },
           body: JSON.stringify(x),
         });
+        return res;
       } else {
         alert("Please use less than 240 characters");
         throw "Please use less than 240 characters.";
