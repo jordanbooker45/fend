@@ -52,7 +52,7 @@ app.post("/api/", function (req, res) {
   const userText = req.body.text;
   console.log(userText);
 
-  textapi.sentiment(
+  const data = textapi.sentiment(
     {
       text: userText,
     },
@@ -60,11 +60,10 @@ app.post("/api/", function (req, res) {
       if (error === null) {
         console.log(response);
       }
+      return response;
     }
   );
-  console.log(response);
-
-  // res.send(response);
-
+  console.log(data);
+  res.json(data);
   //  res.json(mockAPIResponse);
 });
