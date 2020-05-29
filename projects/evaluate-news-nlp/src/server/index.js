@@ -22,6 +22,10 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+//Enable preflight for all requests
+
+// app.options("*", cors());
+
 app.use(express.static("dist"));
 
 console.log(__dirname);
@@ -41,12 +45,26 @@ app.listen(8000, function () {
   console.log("Example app listening on port 8000!");
 });
 
-app.post("/api", function (req, res) {
+app.post("/api/", function (req, res) {
   console.log("API called");
 
-  /* //Use this to grab post req
-  req.param('text') */
+  //Grab request text
+  const userText = req.body.text;
+  console.log(userText);
 
-  res.json({ test: "test123" });
-  //  console.log(mAr.body);
+  textapi.sentiment(
+    {
+      text: userText,
+    },
+    function (error, response) {
+      if (error === null) {
+        console.log(response);
+      }
+    }
+  );
+  console.log(response);
+
+  // res.send(response);
+
+  //  res.json(mockAPIResponse);
 });

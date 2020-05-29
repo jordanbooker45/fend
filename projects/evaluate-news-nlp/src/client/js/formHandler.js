@@ -13,23 +13,17 @@ function handleSubmit(event) {
     try {
       //Eventually use logic to check if string is more/less than 240 characters
       if (typeof x === "string") {
-        //Check to see if formText is brought into function
-        console.log(x);
-
-        //Grab HTML Elements to be dynamically updated
-        const polarityResults = document.getElementById("polarity");
-        const subjectivityResults = document.getElementById("subjectivity");
-        const textResults = document.getElementById("text");
-
-        //Get request to server
-        const res = await fetch("http://localhost:8000/api", {
+        const settings = {
           method: "POST",
-          mode: "no-cors",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
-          body: JSON.stringify(x),
-        });
+          body: JSON.stringify({ text: x }),
+        };
+
+        //POST request to server
+        const res = await fetch("http://localhost:8000/api/", settings);
         return res;
       } else {
         alert("Please use less than 240 characters");
@@ -40,18 +34,19 @@ function handleSubmit(event) {
     }
   }
   getResults(formText)
-    .then((res) => console.log(res))
+    .then((res) => res.json())
     .then((data) => {
       console.log("Analysis received!");
       //Grab HTML Elements to be updated
-      const polarityResults = document.getElementById("polarity");
+      let polarityResults = document.getElementById("polarity");
       const subjectivityResults = document.getElementById("subjectivity");
       const textResults = document.getElementById("text");
       console.log(data);
+
       //Assign returned data to Elements
-      data.polarity.value = polarityResults.innerHTML;
-      data.subjectivity.value = subjectivityResults.innerHTML;
-      data.text.value = textResults.innerHTML;
+      polarityResults.innerHTML = data.polarity;
+      subjectivityResults.innerHTML = data.subjectivity;
+      textResults.innerHTML = data.text;
     });
 }
 
