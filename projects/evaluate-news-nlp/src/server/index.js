@@ -35,6 +35,25 @@ var textapi = new AYLIENTextAPI({
   application_key: process.env.API_KEY,
 });
 
+// Asych Aylien API Call
+async function callAylien(a){
+  try{
+    await textapi.sentiment(
+      {
+        text: a,
+      },
+      function (error, response) {
+        if (error === null) {
+          console.log(response);
+        }
+        return response;
+      }
+    );
+  } catch(error) {
+    console.log("There has been an error.", error);
+  }
+}
+
 app.get("/", function (req, res) {
   // res.sendFile('dist/index.html')
   res.sendFile(path.resolve("src/client/views/index.html"));
@@ -51,19 +70,9 @@ app.post("/api/", function (req, res) {
   //Grab request text
   const userText = req.body.text;
   console.log(userText);
-
-  const data = textapi.sentiment(
-    {
-      text: userText,
-    },
-    function (error, response) {
-      if (error === null) {
-        console.log(response);
-      }
-      return response;
-    }
-  );
-  console.log(data);
-  res.json(data);
+  
+  callAylien(userText).then((data) => res.json(data), console.log(data));
   //  res.json(mockAPIResponse);
 });
+
+
