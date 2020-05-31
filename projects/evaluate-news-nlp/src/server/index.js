@@ -37,6 +37,7 @@ var textapi = new AYLIENTextAPI({
 
 // Aylien API Call
 
+<<<<<<< HEAD
 async function callAylien(a) {
   try {
     textapi.sentiment(
@@ -52,10 +53,26 @@ async function callAylien(a) {
         }
       }
     );
+=======
+async function callAylien (a) {
+  try {
+    textapi.sentiment({
+      "text" : a
+    }, function(error, response) {
+      if (error === null) {
+        console.log(response);
+        return response;
+      }
+      else {
+        console.log(error);
+      }
+    });
+>>>>>>> 49e87eecfc1876da2a12140cda92a019a817d77b
   } catch (error) {
     console.log("Error", error);
   }
-}
+};
+
 
 app.get("/", function (req, res) {
   // res.sendFile('dist/index.html')
@@ -73,6 +90,15 @@ app.post("/api/", function (req, res) {
   //Grab request text
   const userText = req.body.text;
   console.log(userText);
+<<<<<<< HEAD
+=======
+
+  //Call Aylien API
+  callAylien(userText).then(console.log(response));
+
+  res.json(mockAPIResponse);
+});
+>>>>>>> 49e87eecfc1876da2a12140cda92a019a817d77b
 
   //Call Aylien API
   callAylien(userText).then(console.log(response));
