@@ -19,7 +19,7 @@ function handleSubmit(event) {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
-          body: JSON.stringify({ text: x }),
+          body: JSON.stringify({ "text" : x }),
         };
 
         //POST request to server
