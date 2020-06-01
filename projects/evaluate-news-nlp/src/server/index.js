@@ -37,22 +37,6 @@ var textapi = new AYLIENTextAPI({
 
 // Aylien API Call
 
-function callAylien(a) {
-  let name = {};
-  textapi.sentiment(
-    {
-      text: a,
-    },
-    function (error, response) {
-      if (error === null) {
-        console.log(response);
-        name = response;
-        return name;
-      }
-    }
-  );
-  return name;
-}
 
 app.get("/", function (req, res) {
   // res.sendFile('dist/index.html')
@@ -71,10 +55,23 @@ app.post("/api/", function (req, res) {
   const userText = req.body.text;
 
   //Call Aylien API
-  async function myFetch() {
-    let response = await callAylien(userText);
-    console.log(response);
+  async function myFetch(a) {
+   await textapi.sentiment(
+      {
+        text: a,
+      },
+      function (error, response) {
+        if (error === null) {
+          res.json(response);
+          console.log(response);
+          
+        }
+        else{
+          console.log(errror, "An error has occured");
+        }
+      }
+    );
   }
 
-  myFetch();
+  myFetch(userText);
 });
