@@ -1,44 +1,36 @@
 function handleSubmit(event) {
   event.preventDefault();
 
-  // check what text was put into the form field
   let formText = document.getElementById("name").value;
 
-  //Left it for a funny
+  //Checks if text is valid - if not throw error and display hint
   Client.textCheck(formText);
-  console.log("Congrats, it worked");
 
   async function getResults(x) {
     console.log(x);
     try {
-      //Eventually use logic to check if string is more/less than 240 characters
-      if (typeof x === "string") {
-        const settings = {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify({ text: x }),
-        };
+      const settings = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({ text: x }),
+      };
 
-        //POST request to server
-        const res = await fetch("http://localhost:8000/api/", settings);
-        return res;
-      } else {
-        alert("Please use less than 240 characters");
-        throw "Please use less than 240 characters.";
-      }
+      //POST request to server
+      const res = await fetch("http://localhost:8000/api/", settings);
+      return res;
     } catch (error) {
-      console.log("error", error);
+      console.log("An error has occured", error);
     }
   }
   getResults(formText)
     .then((res) => res.json())
     .then((data) => {
-      console.log("Analysis received!");
       //Grab HTML Elements to be updated
-      let polarityResults = document.getElementById("polarity");
+      const analysisContainer = document.getElementById("analysis");
+      const polarityResults = document.getElementById("polarity");
       const subjectivityResults = document.getElementById("subjectivity");
       const textResults = document.getElementById("text");
       console.log(data);
@@ -47,6 +39,9 @@ function handleSubmit(event) {
       polarityResults.innerHTML = data.polarity;
       subjectivityResults.innerHTML = data.subjectivity;
       textResults.innerHTML = data.text;
+
+      //Show Analysis
+      analysisContainer.classList.remove("hide");
     });
 }
 
