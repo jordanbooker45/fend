@@ -5,8 +5,8 @@ function handleSubmit(event) {
   let formText = document.getElementById("name").value;
 
   //Left it for a funny
-  Client.checkForName(formText);
-  console.log("::: Form Submitted :::");
+  Client.textCheck(formText);
+  console.log("Congrats, it worked");
 
   async function getResults(x) {
     console.log(x);
@@ -19,7 +19,7 @@ function handleSubmit(event) {
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
-          body: JSON.stringify({ "text" : x }),
+          body: JSON.stringify({ text: x }),
         };
 
         //POST request to server
