@@ -6,7 +6,7 @@ function textCheck(it) {
 
   //Fix regex
 
-  let re = new RegExp(/^[a-z]{1,280}$/i);
+  let re = new RegExp(/^\s*(?:\S\s*){1,280}$/i);
   let OK = re.exec(inputText);
 
   if (!OK) {
