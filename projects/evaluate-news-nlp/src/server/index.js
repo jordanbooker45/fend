@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mockAPIResponse = require("./mockAPI.js");
 const AYLIENTextAPI = require("aylien_textapi");
-const dotenv = require("dotenv").config({ path: "../../.env" });
+const dotenv = require("dotenv").config();
 
 // Url build variables
 const baseUrl = "https://api.aylien.com/api/v1/sentiment/?";
@@ -37,16 +37,16 @@ var textapi = new AYLIENTextAPI({
 
 // Aylien API Call
 
-
 app.get("/", function (req, res) {
   // res.sendFile('dist/index.html')
   res.sendFile(path.resolve("src/client/views/index.html"));
 });
 
 // designates what port the app will listen to for incoming requests
-app.listen(8000, function () {
-  console.log("Example app listening on port 8000!");
-});
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
 
 app.post("/api/", function (req, res) {
   console.log("API called");
@@ -56,7 +56,7 @@ app.post("/api/", function (req, res) {
 
   //Call Aylien API
   async function myFetch(a) {
-   await textapi.sentiment(
+    await textapi.sentiment(
       {
         text: a,
       },
@@ -64,10 +64,9 @@ app.post("/api/", function (req, res) {
         if (error === null) {
           res.json(response);
           console.log(response);
-          
-        }
-        else{
-          console.log(errror, "An error has occured");
+        } else {
+          console.log(error, "An error has occured");
+          res.status(500).send({ error: "something blew up" });
         }
       }
     );
