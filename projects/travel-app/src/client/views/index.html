@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Weather Journal</title>
+    <title>Travel Planner</title>
     <link
       href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
       rel="stylesheet"
@@ -36,7 +36,14 @@
           rows="3"
           cols="50"
         ></textarea>
-        <button id="logtrip" type="submit" onsubmit="logtrip">Log Trip!</button>
+        <button
+          id="logtrip"
+          type="submit"
+          onsubmit="return Client.logTrip(event)"
+          onclick="return Client.logTrip(event)"
+        >
+          Log Trip!
+        </button>
       </div>
       <div class="holder entry">
         <div class="title">Upcoming Trips</div>

@@ -1,10 +1,31 @@
-const logTrip = () => {
+function logTrip(event) {
+  event.preventDefault();
+
   let arrival = document.getElementById("arrive").value;
   let depart = document.getElementById("depart").value;
+  let location = document.getElementById("destination").value;
 
-  //use Date.parse() to convert date into milliseconds
-  // Include a countdown feature to calculate how many days left until trip
-  console.log(arrival);
-};
+  Client.checkInput(arrival, depart, location);
+  Client.tripDate(arrival, depart);
+
+  Client.getLocation(location)
+    .then((res) => res.json())
+    .then((data) => {
+      //Grab HTML Elements to be updated
+      const datesContainer = document.getElementById("dates");
+      const durationContainer = document.getElementById("duration");
+      const locationContainer = document.getElementById("location");
+      const notesContainer = document.getElementById("notes");
+      console.log(data);
+
+      //Assign returned data to Elements
+      datesContainer.innerHTML = data.dates;
+      subjectivityResults.innerHTML = data.subjectivity;
+      textResults.innerHTML = data.text;
+
+      //Show Analysis
+      analysisContainer.classList.remove("hide");
+    });
+}
 
 export { logTrip };
