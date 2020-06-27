@@ -6,7 +6,7 @@ function logTrip(event) {
   let location = document.getElementById("destination").value;
 
   Client.checkInput(arrival, depart, location);
-  Client.tripDate(arrival, depart);
+ 
 
   Client.getLocation(location)
     .then((res) => res.json())
@@ -26,6 +26,7 @@ function logTrip(event) {
       //Show Analysis
       analysisContainer.classList.remove("hide");
     });
+    Client.tripDate(arrival, depart, long, lat);
 }
 
 export { logTrip };
