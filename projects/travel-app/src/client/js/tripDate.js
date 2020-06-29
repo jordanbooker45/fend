@@ -1,18 +1,18 @@
-function tripDate(x, y, lo, la) {
-  //use Date.parse() to convert date into milliseconds
-  // Include a countdown feature to calculate how many days left until trip
+function tripDate(x, y) {
   const oneDay = 1000 * 60 * 60 * 24;
-  let long = lo;
-  let lat = la;
+
   let arrive = Date.parse(x);
   let depart = Date.parse(y);
   let diff = depart - arrive;
   let days = diff / oneDay;
-  console.log(days);
+
+  //maybe add in a nights counter in the future...
   if (days > 16) {
-    //run weather forcast call 
+    Client.forecastWeather;
+    return days;
   } else {
-   // run current weather
+    Client.currentWeather;
+    return days;
   }
 }
 
