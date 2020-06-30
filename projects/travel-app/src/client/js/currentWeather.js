@@ -1,4 +1,4 @@
-async function currentWeather(x, y) {
+async function currentWeather() {
   /*   const dotenv = require("dotenv");
   
     console.log(process.env.USERNAME); */
