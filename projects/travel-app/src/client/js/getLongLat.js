@@ -1,15 +1,25 @@
-async function getLocation(x) {
-  /*   const dotenv = require("dotenv");
+function getLocation(x) {
+  let location = x;
+  const username = process.env.USERNAME;
 
-  console.log(process.env.USERNAME); */
-
-  console.log(x);
-  try {
-    const res = await fetch("https:localhost:5000/geo");
-    return res;
-  } catch (error) {
-    console.log("An error has occured", error);
+  async function getLongLat(loc, user) {
+    try {
+      const res = await fetch(
+        `http://api.geonames.org/searchJSON?q=${loc}&maxRows=10&username=${user}`
+      );
+      return res;
+    } catch (error) {
+      console.log("An error has occured", error);
+    }
   }
+
+  getLongLat(location, username)
+    .then((response) => response.json())
+    .then(function (data) {
+      console.log(data);
+      localStorage.setItem("long", data.geonames[0].lng);
+      localStorage.setItem("lat", data.geonames[0].lat);
+    });
 }
 
 export { getLocation };

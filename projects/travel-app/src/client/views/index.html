@@ -31,8 +31,8 @@
         <label for="notes">Notes</label>
         <textarea
           class="myInput"
-          id="notes"
-          placeholder="Enter your feelings here"
+          id="inputNotes"
+          placeholder="Enter your trip notes here"
           rows="3"
           cols="50"
         ></textarea>
@@ -45,12 +45,19 @@
           Log Trip!
         </button>
       </div>
+      <div id="hintContainer" class="hide">
+        Please fill out arrival, departure and location fields
+      </div>
       <div class="holder entry">
         <div class="title">Upcoming Trips</div>
         <div id="entryHolder">
-          <div id="dates"></div>
+          <div id="pic"></div>
+          <div id="arrive"></div>
+          <div id="depart"></div>
+          <div id="daysUntil"></div>
           <div id="duration"></div>
           <div id="location"></div>
+          <div id="weather"></div>
           <div id="notes"></div>
           <div id="calendarContainer">
             <button id="addToCalendar" onclick="addToCalendar()">
@@ -60,7 +67,7 @@
         </div>
       </div>
     </div>
-    <script>
+    <!--     <script>
       // Check that service workers are supported
       if ("serviceWorker" in navigator) {
         // Use the window load event to keep the page load performant
@@ -68,6 +75,6 @@
           navigator.serviceWorker.register("/service-worker.js");
         });
       }
-    </script>
+    </script> -->
   </body>
 </html>
