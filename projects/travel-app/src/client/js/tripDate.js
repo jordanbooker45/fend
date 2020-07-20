@@ -6,7 +6,7 @@ function tripDate(x, y) {
   let diff = depart - arrive;
   let days = diff / oneDay;
 
-  //Trip Coundown
+  //Trip Coundown - IS WRONG!!!
   let tripCountDown = Math.floor((depart - now) / oneDay);
 
   //maybe add in a nights counter in the future...

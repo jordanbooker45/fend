@@ -6,7 +6,6 @@ projectData = {};
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
 
 // Start up an instance of app
 
@@ -48,8 +47,3 @@ function postData(req, res) {
   projectData.content = newData.content;
   res.status(201).json(projectData);
 }
-
-// Bring in API key
-
-dotenv.config();
-console.log("the value of the api is: ", process.env.APIKEY);
