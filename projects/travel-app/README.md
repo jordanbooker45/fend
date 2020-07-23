@@ -43,14 +43,15 @@ To run the app on the webpack developer server run the command:
 ```
 npm run build-dev
 ```
+The app should automatically launch in your browser, if not you can type localhost:8080 in the browser.
 
 To run the project on the production server use:
 
 ```
-npm run build-prod
+npm run start
 ```
 
-The app should automatically launch in your browser, if not you can type localhost:8080 in the browser.
+Then type localhost:5000 in your browser.
 
 
 
