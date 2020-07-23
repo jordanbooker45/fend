@@ -1,6 +1,6 @@
 async function getLocation() {
-  let location = localStorage.getItem("location");
   const username = process.env.USERNAME;
+  let location = encodeURI(localStorage.getItem("location"));
 
   async function getLongLat(loc, user) {
     try {
@@ -18,7 +18,6 @@ async function getLocation() {
     .then(function (data) {
       localStorage.setItem("long", data.geonames[0].lng);
       localStorage.setItem("lat", data.geonames[0].lat);
-      return data;
     });
 }
 

@@ -1,7 +1,7 @@
 function getWeather() {
   const wKey = process.env.WEATHERBIT_KEY;
-  let long = localStorage.getItem("longitude");
-  let lat = localStorage.getItem("latitude");
+  let long = localStorage.getItem("long");
+  let lat = localStorage.getItem("lat");
   let daysUntil = localStorage.getItem("daysUntil");
 
   async function fetchWeather(key, lo, la, du) {
@@ -31,7 +31,6 @@ function getWeather() {
     .then(function (data) {
       console.log(data.data[0].temp);
       localStorage.setItem("temp", data.data[0].temp);
-      return data;
     });
 }
 

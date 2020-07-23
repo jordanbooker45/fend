@@ -1,6 +1,6 @@
-function getPicture() {
+async function getPicture() {
   const pKey = process.env.PIXABAY_KEY;
-  let location = localStorage.getItem("location");
+  let location = encodeURI(localStorage.getItem("location"));
 
   async function getPic(key, loc) {
     try {
@@ -17,7 +17,6 @@ function getPicture() {
     .then((response) => response.json())
     .then(function (data) {
       localStorage.setItem("picture", data.hits[0].webformatURL);
-      return data;
     });
 }
 

@@ -5,14 +5,12 @@ function tripDate(x, y) {
   let depart = Date.parse(y);
   let diff = depart - arrive;
   let days = diff / oneDay;
-
-  //Trip Coundown - IS WRONG!!!
-  let tripCountDown = Math.floor((depart - now) / oneDay);
+  let tripCountDown = Math.floor((arrive - now) / oneDay);
 
   //maybe add in a nights counter in the future...
   localStorage.setItem("duration", days);
   localStorage.setItem("daysUntil", tripCountDown);
-  return;
+  return tripCountDown;
 }
 
 export { tripDate };
