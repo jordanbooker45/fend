@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -40,5 +41,6 @@ module.exports = {
       filename: "./index.html",
     }),
     new WorkboxPlugin.GenerateSW(),
+    new Dotenv(),
   ],
 };
